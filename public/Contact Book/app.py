@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, session
+ flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -9,7 +9,7 @@ db = SQLAlchemy(app)
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Colufrommn(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
 
@@ -61,9 +61,17 @@ def register():
 def dashboard():
     if "user_id" not in session:
         return redirect(url_for("login"))
+
     user_id = session["user_id"]
     contacts = Contact.query.filter_by(user_id=user_id).order_by(Contact.name).all()
-    return render_template("dashboard.html", contacts=contacts)
+
+    contact_count = len(contacts)
+
+    return render_template(
+        "dashboard.html",
+        contacts=contacts,
+        contact_count=contact_count
+    )
 
 
 @app.route("/add_contact", methods=["GET", "POST"])
