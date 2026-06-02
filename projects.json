@@ -2393,14 +2393,14 @@
     "projectName": "Escape Room",
     "projectType": "Game",
     "projectDesc": "A thrilling escape room experience in your browser.",
-    "techStack": [
+     "techStack": [
       "html",
       "css",
       "javascript"
     ],
     "difficulty": "intermediate",
     "projectPath": "./public/Escape_Room/index.html"
-  },
+   },
   {
     "projectNo": 194,
     "projectName": "Lost & Found Portal",
@@ -2497,8 +2497,7 @@
     "projectPath": "./public/Movie-Matcher/index.html"
   
 },
-
-    {
+{
     "projectNo": 201,
     "projectName": "Number Guesser Game",
     "projectType": "Game",
@@ -2529,7 +2528,6 @@
   "techStack": ["javascript", "css", "html", "electron"],
   "difficulty": "intermediate"
   },
-
 {
     "projectNo": 204,
     "projectName": "Movie Search App",
@@ -2543,5 +2541,18 @@
     ],
     "difficulty": "intermediate",
     "projectPath": "./public/movie-search-app/index.html"
-  }
+},
+  {
+  "projectNo": 205,
+  "projectName": "Escape the Matrix Game",
+  "projectType": "Web Application",
+  "projectDesc": "An immersive, interactive web-based survival and puzzle game challenging players to hack their way out of a simulated reality.",
+  "techStack": [
+    "html",
+    "css",
+    "javascript"
+  ],
+  "difficulty": "advanced",
+  "projectPath": "./public/Escape The Matrix/index.html"
+}
 ]
