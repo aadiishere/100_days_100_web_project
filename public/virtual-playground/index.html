@@ -30,6 +30,7 @@
         height: 40px;
         border-radius: 50%;
         background: #ff6b6b;
+        background: #ff6b6b;
         position: absolute;
         cursor: pointer;
         transition: transform 0.1s;
@@ -151,6 +152,17 @@
     </div>
 
     <!-- Ball customisation: color picker + shape selector -->
+    <div class="customise">
+      <label>Color <input type="color" id="ballColor" value="#ff6b6b" /></label>
+      <label>Shape
+        <select id="ballShape">
+          <option value="circle">Circle</option>
+          <option value="square">Square</option>
+          <option value="triangle">Triangle</option>
+          <option value="star">Star</option>
+        </select>
+      </label>
+    </div>
     <div class="customise">
       <label>Color <input type="color" id="ballColor" value="#ff6b6b" /></label>
       <label>Shape
