@@ -406,6 +406,7 @@ body {
 .bg-amber { background: #f59e0b; }
 .bg-blue { background: #3b82f6; }
 .bg-emerald { background: #10b981; }
+.bg-rose { background: #f97316; }
 
 .stat-info p {
     font-size: 0.875rem;

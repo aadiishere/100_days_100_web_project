@@ -18,6 +18,13 @@ class ComplaintApp {
     saveItems() {
         localStorage.setItem('complaintSystemData', JSON.stringify(this.items));
         this.updateDashboardStats();
+
+        if (this.currentView === 'listings') {
+            this.renderListings();
+        } else if (this.currentView === 'admin') {
+            this.renderAdminList();
+            this.renderAdminEditor();
+        }
     }
 
     // --- Initialization ---
@@ -45,6 +52,7 @@ class ComplaintApp {
         this.statPending = document.getElementById('stat-pending');
         this.statProgress = document.getElementById('stat-progress');
         this.statResolved = document.getElementById('stat-resolved');
+        this.statUnresolved = document.getElementById('stat-unresolved');
         this.recentTableBody = document.getElementById('recent-table-body');
         
         // Forms
@@ -231,6 +239,19 @@ class ComplaintApp {
         return config[priority] || { text: 'Normal', class: 'badge-pending' };
     }
 
+    getComplaintAgeInDays(item) {
+        if (!item?.createdAt) return 0;
+        const createdAt = new Date(item.createdAt);
+        if (Number.isNaN(createdAt.getTime())) return 0;
+
+        const diffMs = Date.now() - createdAt.getTime();
+        return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    }
+
+    isComplaintUnresolved(item) {
+        return item.status !== 'resolved' && this.getComplaintAgeInDays(item) > 7;
+    }
+
     // --- File Handling ---
     handleFileSelect(e) {
         const file = e.target.files[0];
@@ -316,11 +337,13 @@ class ComplaintApp {
         const pending = this.items.filter(i => i.status === 'pending').length;
         const progress = this.items.filter(i => i.status === 'in_progress').length;
         const resolved = this.items.filter(i => i.status === 'resolved').length;
+        const unresolved = this.items.filter(i => this.isComplaintUnresolved(i)).length;
 
         this.statTotal.textContent = total;
         this.statPending.textContent = pending;
         this.statProgress.textContent = progress;
         this.statResolved.textContent = resolved;
+        this.statUnresolved.textContent = unresolved;
     }
 
     renderRecentComplaints() {
@@ -358,7 +381,11 @@ class ComplaintApp {
 
         const filtered = this.items.filter(item => {
             const matchesSearch = item.title.toLowerCase().includes(query) || item.id.toLowerCase().includes(query);
-            const matchesStatus = statusFilter === 'all' || item.status === statusFilter;
+            const matchesStatus = statusFilter === 'all'
+                ? true
+                : statusFilter === 'unresolved'
+                    ? this.isComplaintUnresolved(item)
+                    : item.status === statusFilter;
             const matchesPriority = priorityFilter === 'all' || item.priority === priorityFilter;
             return matchesSearch && matchesStatus && matchesPriority;
         });
